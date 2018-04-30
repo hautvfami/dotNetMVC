@@ -1,0 +1,28 @@
+input {
+	background-color: transparent;
+	color: white;
+	border-width: 0px 0px 1px 0px;
+	padding: 2vh 0vh 2vh 0vh;
+	outline-width: 0px;
+}
+
+input::placeholder{
+	color: white;
+}
+
+h1 h2 h3 h4 h5 h6{
+	margin-bottom: 4vh;
+}
+
+a{
+	text-decoration: none !important;
+	color: gray;
+}
+
+a:hover{
+	color: black !important;
+}
+
+ul li{
+	display: inline;
+}

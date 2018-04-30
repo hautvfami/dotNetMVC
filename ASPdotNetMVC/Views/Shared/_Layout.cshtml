@@ -1,0 +1,191 @@
+﻿@using ASPdotNetMVC.Models;
+@{
+    USER user = (USER)Session["localInfo"];
+}
+<!DOCTYPE html>
+<html class="perfect-scrollbar-on">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../Dist/css/demo.css">
+    <link rel="stylesheet" href="../Dist/css/main.css">
+    <link rel="stylesheet" href="../Dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Dist/perfectScrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../Dist/css/material-dashboard.css">
+
+
+    <link rel="stylesheet" href="../Dist/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../Dist/fonts/material-fonts.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="../Dist/js/jquery-3.3.1.js"></script>
+    <script src="../Dist/perfectScrollbar/perfect-scrollbar.jquery.js"></script>
+    <script src="../Dist/js/bootstrap.js"></script>
+    <script src="../Dist/js/animation.js"></script>
+</head>
+
+<body class="bootstrap-collapse perfect-scrollbar-on">
+    <div class="wrapper">
+        <div class="sidebar" data-active-color="green" data-background-color="black"
+             data-image="dist/images/background.png">
+            <!-- Logo component -->
+            <div class="logo">
+                <div class="logo-normal">
+                    @Html.ActionLink("HDU Library", "Index", "Home", null, new { @class = "simple-text" })
+                </div>
+
+                <div class="logo-img">
+                    <img src="../dist/images/HDU-VN-logo.jpg" />
+                </div>
+            </div>
+            <!-- End logo component -->
+
+
+            <div id="SuppressScrollX" class="sidebar-wrapper ps-container ps-theme-default text">
+
+                <!-- User profile component -->
+                <div class="user">
+                    <div class="photo">
+                        @{
+                            ViewBag.UAvatar = user.AVATAR == null ? "../Dist/images/user.png" : "data:image/png;base64," + Convert.ToBase64String(user.AVATAR);
+                            ViewBag.UName = user.NAME;
+                            ViewBag.UId = user.ID;
+                        }
+                        <img src=@ViewBag.UAvatar />
+                    </div>
+                    <div class="info">
+                        <a class="collapse" data-toggle="collapse" href="#collapseExample">
+                            <span>@ViewBag.UName<b class="caret"></b></span>
+                        </a>
+                        <div class="collapse" id="collapseExample" aria-expanded="false" style="">
+                            <ul class="nav">
+                                <li>
+                                    <a class="">
+                                        <span class="sidebar-mini">MS</span>
+                                        <span class="sidebar-normal">@ViewBag.UId</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span class="sidebar-mini">CD</span>
+                                        <span class="sidebar-normal">Cài đặt</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./../Login">
+                                        <span class="sidebar-mini">DX</span>
+                                        <span class="sidebar-normal">Đăng xuất</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- User profile component -->
+                <!---->
+                @Html.Partial("_PartialLeftMenu");
+            </div>
+            <div class="sidebar-background" style="background-image: url(../dist/images/background.png)"></div>
+        </div>
+        <div id="12345678" class="main-panel ps-container ps-theme-default ps-active-y"
+             data-ps-id="9f236a87-b374-c108-e097-59c338d49498">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-minimize">
+                        <button class="btn btn-round btn-white btn-fill btn-just-icon" id="minimizeSidebar">
+                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                        </button>
+                    </div>
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/dashboard"> Trang chủ </a>
+                    </div>
+                    <!---->
+                    <div class="collapse navbar-collapse">
+                        <div>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#pablo">
+                                        <i class="material-icons">dashboard</i>
+                                        <p class="hidden-lg hidden-md">Dashboard</p>
+                                    </a>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <i class="material-icons">notifications</i>
+                                        <span class="notification">5</span>
+                                        <p class="hidden-lg hidden-md">
+                                            Notifications
+                                            <b class="caret"></b>
+                                        </p>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">Thông báo danh mục sách sắp đến hạn trả</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Thông báo truy thu phí sử dụng thư viện</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Thông báo đổi thẻ từ sử dụng thư viện</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Nội quy sử dụng hệ thống thư viện điện tử</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Chào mừng thành viên mới</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#pablo">
+                                        <i class="material-icons">person</i>
+                                        <p class="hidden-lg hidden-md">Profile</p>
+                                    </a>
+                                </li>
+                                <li class="separator hidden-lg hidden-md"></li>
+                            </ul>
+                            <form class="navbar-form navbar-right" role="search">
+                                <div class="form-group form-search is-empty">
+                                    <input class="form-control" placeholder="Tìm kiếm" type="text">
+                                    <span class="material-input"></span>
+                                    <span class="material-input"></span>
+                                </div>
+                                <button class="btn btn-white btn-round btn-just-icon" type="submit">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!---->
+                </div>
+            </nav>
+
+            @RenderBody()
+
+            <div>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                        </nav>
+                        <p class="copyright pull-right">
+                            ©
+                            2018
+                            <a href="mailto:hautv.fami@gmail.com">No.1 Team</a>, All right reserved!
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <div class="jvectormap-tip"></div>
+</body>
+</html>

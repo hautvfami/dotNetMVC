@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BOOKS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CONTENT" Type="ntext" />
+          <Property Name="AUTHOR" Type="nvarchar" MaxLength="100" />
+          <Property Name="PUBLISHER" Type="nvarchar" MaxLength="100" />
+          <Property Name="COST" Type="int" />
+          <Property Name="IN_LIB" Type="smallint" />
+          <Property Name="OUT_LIB" Type="smallint" />
+          <Property Name="COVER" Type="image" />
+        </EntityType>
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LINK" Type="varchar" MaxLength="200" />
+          <Property Name="CODE" Type="int" />
+          <Property Name="ICON" Type="varchar" MaxLength="50" />
+          <Property Name="NO" Type="smallint" />
+        </EntityType>
+        <EntityType Name="SUB_MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LINK" Type="varchar" MaxLength="200" />
+          <Property Name="IDMAIN" Type="int" />
+          <Property Name="MINIFY" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USER_BOOK">
+          <Key>
+            <PropertyRef Name="BOOKID" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="BOOKID" Type="int" Nullable="false" />
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="BORROW_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="RETURN_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="IS_RETURN" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="200" />
+          <Property Name="PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
+          <Property Name="CODE" Type="int" />
+          <Property Name="AVATAR" Type="image" />
+        </EntityType>
+        <Association Name="FK__SUB_MENU__IDMAIN__4D94879B">
+          <End Role="MENU" Type="Self.MENU" Multiplicity="0..1" />
+          <End Role="SUB_MENU" Type="Self.SUB_MENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENU">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SUB_MENU">
+              <PropertyRef Name="IDMAIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USER_BOOK__BOOKI__2EDAF651">
+          <End Role="BOOKS" Type="Self.BOOKS" Multiplicity="1" />
+          <End Role="USER_BOOK" Type="Self.USER_BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOKS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_BOOK">
+              <PropertyRef Name="BOOKID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USER_BOOK__USERI__2FCF1A8A">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+          <End Role="USER_BOOK" Type="Self.USER_BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_BOOK">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="WFModelStoreContainer">
+          <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SUB_MENU" EntityType="Self.SUB_MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_BOOK" EntityType="Self.USER_BOOK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__SUB_MENU__IDMAIN__4D94879B" Association="Self.FK__SUB_MENU__IDMAIN__4D94879B">
+            <End Role="MENU" EntitySet="MENU" />
+            <End Role="SUB_MENU" EntitySet="SUB_MENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USER_BOOK__BOOKI__2EDAF651" Association="Self.FK__USER_BOOK__BOOKI__2EDAF651">
+            <End Role="BOOKS" EntitySet="BOOKS" />
+            <End Role="USER_BOOK" EntitySet="USER_BOOK" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USER_BOOK__USERI__2FCF1A8A" Association="Self.FK__USER_BOOK__USERI__2FCF1A8A">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="USER_BOOK" EntitySet="USER_BOOK" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="WFModel.sysdiagram" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(WFModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(WFModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="BOOKS" EntityType="WFModel.BOOK" />
+          <EntitySet Name="MENUs" EntityType="WFModel.MENU" />
+          <EntitySet Name="SUB_MENU" EntityType="WFModel.SUB_MENU" />
+          <EntitySet Name="USER_BOOK" EntityType="WFModel.USER_BOOK" />
+          <EntitySet Name="USERS" EntityType="WFModel.USER" />
+          <AssociationSet Name="FK__USER_BOOK__BOOKI__5AEE82B9" Association="WFModel.FK__USER_BOOK__BOOKI__5AEE82B9">
+            <End Role="BOOK" EntitySet="BOOKS" />
+            <End Role="USER_BOOK" EntitySet="USER_BOOK" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUB_MENU__IDMAIN__4D94879B" Association="WFModel.FK__SUB_MENU__IDMAIN__4D94879B">
+            <End Role="MENU" EntitySet="MENUs" />
+            <End Role="SUB_MENU" EntitySet="SUB_MENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USER_BOOK__USERI__5BE2A6F2" Association="WFModel.FK__USER_BOOK__USERI__5BE2A6F2">
+            <End Role="USER" EntitySet="USERS" />
+            <End Role="USER_BOOK" EntitySet="USER_BOOK" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="BOOK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AUTHOR" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PUBLISHER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COST" Type="Int32" />
+          <Property Name="IN_LIB" Type="Int16" />
+          <Property Name="OUT_LIB" Type="Int16" />
+          <Property Name="COVER" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="USER_BOOK" Relationship="WFModel.FK__USER_BOOK__BOOKI__5AEE82B9" FromRole="BOOK" ToRole="USER_BOOK" />
+        </EntityType>
+        <EntityType Name="MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LINK" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="Int32" />
+          <NavigationProperty Name="SUB_MENU" Relationship="WFModel.FK__SUB_MENU__IDMAIN__4D94879B" FromRole="MENU" ToRole="SUB_MENU" />
+          <Property Name="ICON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NO" Type="Int16" />
+        </EntityType>
+        <EntityType Name="SUB_MENU">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LINK" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IDMAIN" Type="Int32" />
+          <NavigationProperty Name="MENU" Relationship="WFModel.FK__SUB_MENU__IDMAIN__4D94879B" FromRole="SUB_MENU" ToRole="MENU" />
+          <Property Name="MINIFY" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="USER_BOOK">
+          <Key>
+            <PropertyRef Name="BOOKID" />
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="BOOKID" Type="Int32" Nullable="false" />
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="BORROW_DATE" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="RETURN_DATE" Type="DateTime" Precision="0" Nullable="false" />
+          <NavigationProperty Name="BOOK" Relationship="WFModel.FK__USER_BOOK__BOOKI__5AEE82B9" FromRole="USER_BOOK" ToRole="BOOK" />
+          <NavigationProperty Name="USER" Relationship="WFModel.FK__USER_BOOK__USERI__5BE2A6F2" FromRole="USER_BOOK" ToRole="USER" />
+          <Property Name="IS_RETURN" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="Int32" />
+          <Property Name="AVATAR" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="USER_BOOK" Relationship="WFModel.FK__USER_BOOK__USERI__5BE2A6F2" FromRole="USER" ToRole="USER_BOOK" />
+        </EntityType>
+        <Association Name="FK__USER_BOOK__BOOKI__5AEE82B9">
+          <End Type="WFModel.BOOK" Role="BOOK" Multiplicity="1" />
+          <End Type="WFModel.USER_BOOK" Role="USER_BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_BOOK">
+              <PropertyRef Name="BOOKID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUB_MENU__IDMAIN__4D94879B">
+          <End Type="WFModel.MENU" Role="MENU" Multiplicity="0..1" />
+          <End Type="WFModel.SUB_MENU" Role="SUB_MENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MENU">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SUB_MENU">
+              <PropertyRef Name="IDMAIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USER_BOOK__USERI__5BE2A6F2">
+          <End Type="WFModel.USER" Role="USER" Multiplicity="1" />
+          <End Type="WFModel.USER_BOOK" Role="USER_BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="USER_BOOK">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WFModelStoreContainer" CdmEntityContainer="WFEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WFModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="WFModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="WFModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="WFModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="WFModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WFModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="WFModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WFModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="WFModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="WFModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="BOOKS">
+            <EntityTypeMapping TypeName="WFModel.BOOK">
+              <MappingFragment StoreEntitySet="BOOKS">
+                <ScalarProperty Name="COVER" ColumnName="COVER" />
+                <ScalarProperty Name="OUT_LIB" ColumnName="OUT_LIB" />
+                <ScalarProperty Name="IN_LIB" ColumnName="IN_LIB" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+                <ScalarProperty Name="PUBLISHER" ColumnName="PUBLISHER" />
+                <ScalarProperty Name="AUTHOR" ColumnName="AUTHOR" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MENUs">
+            <EntityTypeMapping TypeName="WFModel.MENU">
+              <MappingFragment StoreEntitySet="MENU">
+                <ScalarProperty Name="NO" ColumnName="NO" />
+                <ScalarProperty Name="ICON" ColumnName="ICON" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUB_MENU">
+            <EntityTypeMapping TypeName="WFModel.SUB_MENU">
+              <MappingFragment StoreEntitySet="SUB_MENU">
+                <ScalarProperty Name="MINIFY" ColumnName="MINIFY" />
+                <ScalarProperty Name="IDMAIN" ColumnName="IDMAIN" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_BOOK">
+            <EntityTypeMapping TypeName="WFModel.USER_BOOK">
+              <MappingFragment StoreEntitySet="USER_BOOK">
+                <ScalarProperty Name="IS_RETURN" ColumnName="IS_RETURN" />
+                <ScalarProperty Name="RETURN_DATE" ColumnName="RETURN_DATE" />
+                <ScalarProperty Name="BORROW_DATE" ColumnName="BORROW_DATE" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="BOOKID" ColumnName="BOOKID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="WFModel.USER">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

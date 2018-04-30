@@ -1,0 +1,71 @@
+﻿@model ASPdotNetMVC.Models.USER
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS Login</title>
+    <script src="Dist/js/jquery-3.3.1.js"></script>
+    <script src="Dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="Dist/css/bootstrap.css">
+    <link rel="stylesheet" href="Dist/css/login.css">
+    <link rel="stylesheet" href="Dist/css/common.css">
+    <script src="Dist/js/loginAnimate.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 left-box">
+                <div class="container-custom">
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img src="dist/images/logo.png" class="img-fluid logo">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h1>Guild</h1>
+                        <h3>Library management system</h3>
+                        <br>
+                        <p>
+                            This system's awesome project of "Faculty of information and technology", which Lorem ipsum dolor sit amet,
+                            consectetur adipisicing elit. Dignissimos dolor ea iusto, laboriosam nobis odio saepe sapiente soluta
+                            temporibus veniam.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis corporis ducimus explicabo in ipsa
+                            laudantium mollitia nulla, perspiciatis vero vitae!
+                        </p>
+                        <button class="btn-custom">Tài khoản khách</button>
+
+
+
+                        <div class="row group-link">
+                            <ul>
+                                <li><a href="#">Help Center |</a></li>
+                                <li><a href="#">Contacts |</a></li>
+                                <li><a href="#">Report issues |</a></li>
+                                <li><a href="#">More</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 right-box">
+                @using (Html.BeginForm("handleLogin", "Login", FormMethod.Post)){
+                    <div class="form-custom">
+                        <h2>Or login to your account</h2>
+                        @Html.TextBoxFor(model => model.USERNAME, new { id="password", placeholder = "Your email" })
+                        @Html.PasswordFor(model => model.PASSWORD, new { id="password", placeholder="Password" })
+
+                        @*<input type="text" id="email" placeholder="Your email">
+                        <input type="password" id="password" placeholder="Password">*@
+                        <hr>
+                        <button type="submit" id="btn-login" class="btn-custom">Đăng nhập</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@using ASPdotNetMVC.Models;
+<div class="nav-container">
+    <ul class="nav">
+        <li class="active">
+            <a href="./Home.html">
+                <i class="material-icons">dashboard</i>
+                <p>Trang chủ</p>
+            </a>
+        </li>
+        @{
+            USER user = (USER)Session["localInfo"];
+            MenuDAO mn = new MenuDAO();
+            int i = 0;
+            foreach (CustomMenu CM in mn.getMenu((int)user.CODE))
+            {
+                // Không submenu
+                if (CM.menu.LINK != null)
+                {
+                    <li>
+                        <a href="@CM.menu.LINK">
+                            <i class="material-icons">@CM.menu.ICON</i>
+                            <p>@CM.menu.NAME</p>
+                        </a>
+                    </li>
+                }
+                // Có submenu
+                else
+                {
+                    <li>
+                        <a data-toggle="collapse" href="#@i">
+                            <i class="material-icons">@CM.menu.ICON</i>
+                            <p>@CM.menu.NAME<b class="caret"></b></p>
+                        </a>
+                        <div class="collapse" id="@i">
+                            <ul class="nav">
+                                @{
+                    foreach (SUB_MENU sCM in CM.sub_menu)
+                    {
+                        <li>
+                            <a href="@sCM.LINK">
+                                <span class="sidebar-mini">@sCM.MINIFY</span>
+                                <span class="sidebar-normal">@sCM.NAME</span>
+                            </a>
+                        </li>
+                    }
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                    i++;
+                }
+            }
+        }
+    </ul>
+</div>
