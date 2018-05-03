@@ -30,6 +30,15 @@
           <Property Name="ICON" Type="varchar" MaxLength="50" />
           <Property Name="NO" Type="smallint" />
         </EntityType>
+        <EntityType Name="NEWS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TITLE" Type="nvarchar" MaxLength="200" />
+          <Property Name="CONTENT" Type="ntext" />
+          <Property Name="TIME" Type="datetime" />
+        </EntityType>
         <EntityType Name="SUB_MENU">
           <Key>
             <PropertyRef Name="ID" />
@@ -73,6 +82,7 @@
           <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
           <Property Name="CODE" Type="int" />
           <Property Name="AVATAR" Type="image" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="200" />
         </EntityType>
         <Association Name="FK__SUB_MENU__IDMAIN__4D94879B">
           <End Role="MENU" Type="Self.MENU" Multiplicity="0..1" />
@@ -144,6 +154,7 @@
         <EntityContainer Name="WFModelStoreContainer">
           <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NEWS" EntityType="Self.NEWS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SUB_MENU" EntityType="Self.SUB_MENU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USER_BOOK" EntityType="Self.USER_BOOK" Schema="dbo" store:Type="Tables" />
@@ -214,6 +225,7 @@
             <End Role="USER" EntitySet="USERS" />
             <End Role="USER_BOOK" EntitySet="USER_BOOK" />
           </AssociationSet>
+          <EntitySet Name="NEWS" EntityType="WFModel.NEWS" />
         </EntityContainer>
         <EntityType Name="sysdiagram">
           <Key>
@@ -300,6 +312,7 @@
           <Property Name="CODE" Type="Int32" />
           <Property Name="AVATAR" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="USER_BOOK" Relationship="WFModel.FK__USER_BOOK__USERI__5BE2A6F2" FromRole="USER" ToRole="USER_BOOK" />
+          <Property Name="EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__USER_BOOK__BOOKI__5AEE82B9">
           <End Type="WFModel.BOOK" Role="BOOK" Multiplicity="1" />
@@ -337,6 +350,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NEWS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TIME" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -430,6 +452,7 @@
           <EntitySetMapping Name="USERS">
             <EntityTypeMapping TypeName="WFModel.USER">
               <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
@@ -437,6 +460,16 @@
                 <ScalarProperty Name="PHONE" ColumnName="PHONE" />
                 <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NEWS">
+            <EntityTypeMapping TypeName="WFModel.NEWS">
+              <MappingFragment StoreEntitySet="NEWS">
+                <ScalarProperty Name="TIME" ColumnName="TIME" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

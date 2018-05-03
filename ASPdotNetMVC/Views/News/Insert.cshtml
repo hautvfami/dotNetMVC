@@ -1,0 +1,52 @@
+﻿@model ASPdotNetMVC.Models.NEWS
+@{
+    ViewBag.Title = "Đăng tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Dist/ckeditor/ckeditor.js"></script>
+<script src="~/Dist/ckfinder/ckfinder.js"></script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.replace("edt");
+    })
+</script>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="green">
+            <i class="material-icons">assignment</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Đăng tin</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Tiêu đề</label>
+                            @Html.TextBoxFor(model => model.TITLE, htmlAttributes: new { @class = "form-control" })
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-5"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Nội dung</label>
+                            @Html.TextAreaFor(model => model.CONTENT, new { @class = "form-control", @id = "edt" })
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input class="btn btn-next btn-fill btn-success btn-wd pull-right" name="next" value="Đồng ý" type="submit">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -25,6 +25,15 @@
     <Property Name="ICON" Type="varchar" MaxLength="50" />
     <Property Name="NO" Type="smallint" />
   </EntityType>
+  <EntityType Name="NEWS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TITLE" Type="nvarchar" MaxLength="200" />
+    <Property Name="CONTENT" Type="ntext" />
+    <Property Name="TIME" Type="datetime" />
+  </EntityType>
   <EntityType Name="SUB_MENU">
     <Key>
       <PropertyRef Name="ID" />
@@ -68,6 +77,7 @@
     <Property Name="PASSWORD" Type="varchar" MaxLength="50" />
     <Property Name="CODE" Type="int" />
     <Property Name="AVATAR" Type="image" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="200" />
   </EntityType>
   <Association Name="FK__SUB_MENU__IDMAIN__4D94879B">
     <End Role="MENU" Type="Self.MENU" Multiplicity="0..1" />
@@ -139,6 +149,7 @@
   <EntityContainer Name="WFModelStoreContainer">
     <EntitySet Name="BOOKS" EntityType="Self.BOOKS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MENU" EntityType="Self.MENU" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NEWS" EntityType="Self.NEWS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SUB_MENU" EntityType="Self.SUB_MENU" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USER_BOOK" EntityType="Self.USER_BOOK" Schema="dbo" store:Type="Tables" />

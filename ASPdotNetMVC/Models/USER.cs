@@ -27,6 +27,7 @@ namespace ASPdotNetMVC.Models
         public string PASSWORD { get; set; }
         public Nullable<int> CODE { get; set; }
         public byte[] AVATAR { get; set; }
+        public string EMAIL { get; set; }
     
         public virtual ICollection<USER_BOOK> USER_BOOK { get; set; }
     }

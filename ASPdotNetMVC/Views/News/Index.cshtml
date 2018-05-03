@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ASPdotNetMVC.Models.NEWS>
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-10">
+    <ul class="timeline timeline-simple">
+        @foreach (var item in Model)
+        {
+            <li class="timeline-inverted">
+                <div class="timeline-badge success">
+                    <i class="material-icons">extension</i>
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <span class="label label-success">@item.TITLE</span>
+                    </div>
+                    <div class="timeline-body">
+                        <p>
+                            @Html.Raw(HttpUtility.HtmlDecode(item.CONTENT))
+                        </p>
+                    </div>
+                    <h6>
+                        <i class="ti-time"></i> @item.TIME.ToString()
+                    </h6>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

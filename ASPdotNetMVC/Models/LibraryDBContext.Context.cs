@@ -33,6 +33,7 @@ namespace ASPdotNetMVC.Models
         public virtual DbSet<SUB_MENU> SUB_MENU { get; set; }
         public virtual DbSet<USER_BOOK> USER_BOOK { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
+        public virtual DbSet<NEWS> NEWS { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

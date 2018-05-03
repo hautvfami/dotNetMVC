@@ -88,6 +88,7 @@
     <EntitySetMapping Name="USERS">
       <EntityTypeMapping TypeName="WFModel.USER">
         <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
           <ScalarProperty Name="AVATAR" ColumnName="AVATAR" />
           <ScalarProperty Name="CODE" ColumnName="CODE" />
           <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
@@ -95,6 +96,16 @@
           <ScalarProperty Name="PHONE" ColumnName="PHONE" />
           <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
           <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEWS">
+      <EntityTypeMapping TypeName="WFModel.NEWS">
+        <MappingFragment StoreEntitySet="NEWS">
+          <ScalarProperty Name="TIME" ColumnName="TIME" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="TITLE" ColumnName="TITLE" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

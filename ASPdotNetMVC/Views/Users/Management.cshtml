@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ASPdotNetMVC.Models.USER>
+@{
+    ViewBag.Title = "Người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    @Html.ActionLink("Thêm người dùng", "Insert", new { }, new { @class = "btn btn-sm btn-success" })
+
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="green">
+            <i class="material-icons">people</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Quản lý người dùng</h4>
+            <div class="content table-responsive">
+                <table class="table">
+                    <thead class="text-success">
+                        <tr>
+                            <!---->
+                            <th>Mã ND</th>
+                            <th>Tên ND</th>
+                            <th>Số ĐT</th>
+                            <th>Vai trò</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.ID</td>
+                                <td>@user.NAME</td>
+                                <td>@user.PHONE</td>
+                                <td>
+                                    @switch (user.CODE)
+                                    {
+                                        case 0: <span>Quản trị</span>; break;
+                                        case 1: <span>Quản lý</span>; break;
+                                        case 2: <span>Người dùng</span>; break;
+                                    }
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Xóa", "delete", "users", new { id = user.ID }, new { @class = "btn btn-sm btn-success" }) |
+                                    @Html.ActionLink("Sửa", "update", "users", new { id = user.ID }, new { @class = "btn btn-sm btn-success" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

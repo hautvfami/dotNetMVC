@@ -18,6 +18,11 @@ namespace ASPdotNetMVC.Models
             return db.USERS.OrderBy(x => x.ID).ToList();
         }
 
+        public USER getUserById(int Id)
+        {
+            return db.USERS.Find(Id);
+        }
+
         public void handleInsert(USER a)
         {
             try
@@ -45,11 +50,24 @@ namespace ASPdotNetMVC.Models
             }
         }
 
-        public void handleUpdate(USER a)
+        public void handleUpdate(USER entity)
         {
-            var udObj = db.USERS.SingleOrDefault(x => x.ID == a.ID);
-            udObj = a;
-            db.SaveChanges();
+            try
+            {
+                var udObj = db.USERS.SingleOrDefault(x => x.ID == entity.ID);
+                udObj.NAME = entity.NAME;
+                udObj.PASSWORD = entity.PASSWORD;
+                udObj.PHONE = entity.PHONE;
+                udObj.ADDRESS = entity.ADDRESS;
+                udObj.CODE = entity.CODE;
+                udObj.EMAIL = entity.EMAIL;
+                udObj.AVATAR = entity.AVATAR != null ? entity.AVATAR : udObj.AVATAR;
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("======\n\n" + e);
+            }
         }
 
         public USER handleLogin(string u, string p)

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ASPdotNetMVC.Models.BOOK>
+@{
+    ViewBag.Title = "Sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    @Html.ActionLink("Thêm sách", "Insert", new { }, new { @class = "btn btn-sm btn-success" })
+
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="green">
+            <i class="material-icons">book</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Quản lý sách</h4>
+            <div class="content table-responsive">
+                <table class="table">
+                    <thead class="text-success">
+                        <tr>
+                            <!---->
+                            <th>Mã sách</th>
+                            <th>Tên sách</th>
+                            <th>Tác giả</th>
+                            <th>Nhà xuất bản</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var book in Model)
+                        {
+                            <tr>
+                                <td>@book.ID</td>
+                                <td>@book.NAME</td>
+                                <td>@book.AUTHOR</td>
+                                <td>@book.PUBLISHER</td>
+                                <td>
+                                    @Html.ActionLink("Xóa", "delete", "books", new { id = book.ID }, new { @class = "btn btn-sm btn-success" }) |
+                                    @Html.ActionLink("Sửa", "update", "books", new { id = book.ID }, new { @class = "btn btn-sm btn-success" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

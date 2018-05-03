@@ -7,27 +7,27 @@
 <head>
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../Dist/css/demo.css">
-    <link rel="stylesheet" href="../Dist/css/main.css">
-    <link rel="stylesheet" href="../Dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../Dist/perfectScrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../Dist/css/material-dashboard.css">
+    <link rel="stylesheet" href="~/Dist/css/demo.css">
+    <link rel="stylesheet" href="~/Dist/css/main.css">
+    <link rel="stylesheet" href="~/Dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Dist/perfectScrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/Dist/css/material-dashboard.css">
+    @*<link href="~/Dist/css/material-dashboard.min.css" rel="stylesheet" />*@
 
-
-    <link rel="stylesheet" href="../Dist/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="../Dist/fonts/material-fonts.css">
+    <link rel="stylesheet" href="~/Dist/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Dist/fonts/material-fonts.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-    <script src="../Dist/js/jquery-3.3.1.js"></script>
-    <script src="../Dist/perfectScrollbar/perfect-scrollbar.jquery.js"></script>
-    <script src="../Dist/js/bootstrap.js"></script>
-    <script src="../Dist/js/animation.js"></script>
+    <script src="~/Dist/js/jquery-3.3.1.js"></script>
+    <script src="~/Dist/perfectScrollbar/perfect-scrollbar.jquery.js"></script>
+    <script src="~/Dist/js/bootstrap.js"></script>
+    <script src="~/Dist/js/animation.js"></script>
 </head>
 
 <body class="bootstrap-collapse perfect-scrollbar-on">
     <div class="wrapper">
         <div class="sidebar" data-active-color="green" data-background-color="black"
-             data-image="dist/images/background.png">
+             data-image="~/Dist/images/background.png">
             <!-- Logo component -->
             <div class="logo">
                 <div class="logo-normal">
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="logo-img">
-                    <img src="../dist/images/HDU-VN-logo.jpg" />
+                    <img src="~/Dist/images/HDU-VN-logo.jpg" />
                 </div>
             </div>
             <!-- End logo component -->
@@ -47,7 +47,7 @@
                 <div class="user">
                     <div class="photo">
                         @{
-                            ViewBag.UAvatar = user.AVATAR == null ? "../Dist/images/user.png" : "data:image/png;base64," + Convert.ToBase64String(user.AVATAR);
+                            ViewBag.UAvatar = user.AVATAR == null ? "/Dist/images/user.png" : "data:image/png;base64," + Convert.ToBase64String(user.AVATAR);
                             ViewBag.UName = user.NAME;
                             ViewBag.UId = user.ID;
                         }
@@ -65,14 +65,14 @@
                                         <span class="sidebar-normal">@ViewBag.UId</span>
                                     </a>
                                 </li>
+                                @*<li>
+                                        <a href="">
+                                            <span class="sidebar-mini">CD</span>
+                                            <span class="sidebar-normal">Cài đặt</span>
+                                        </a>
+                                    </li>*@
                                 <li>
-                                    <a href="">
-                                        <span class="sidebar-mini">CD</span>
-                                        <span class="sidebar-normal">Cài đặt</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="./../Login">
+                                    <a href="/Login/Logout">
                                         <span class="sidebar-mini">DX</span>
                                         <span class="sidebar-normal">Đăng xuất</span>
                                     </a>
@@ -85,29 +85,31 @@
                 <!---->
                 @Html.Partial("_PartialLeftMenu");
             </div>
-            <div class="sidebar-background" style="background-image: url(../dist/images/background.png)"></div>
+            <div class="sidebar-background" style="background-image: url(/Dist/images/background.png)"></div>
         </div>
         <div id="12345678" class="main-panel ps-container ps-theme-default ps-active-y"
              data-ps-id="9f236a87-b374-c108-e097-59c338d49498">
-            <nav class="navbar navbar-transparent navbar-absolute">
+            <nav class="navbar navbar-transparent navbar-absolute fixed-top">
                 <div class="container-fluid">
-                    <div class="navbar-minimize">
-                        <button class="btn btn-round btn-white btn-fill btn-just-icon" id="minimizeSidebar">
-                            <i class="material-icons visible-on-sidebar-regular">more_vert</i>
-                            <i class="material-icons visible-on-sidebar-mini">view_list</i>
-                        </button>
-                    </div>
-                    <div class="navbar-header">
-                        <button class="navbar-toggle" type="button">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/dashboard"> Trang chủ </a>
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize">
+                            <button class="btn btn-round btn-white btn-fill btn-just-icon" id="minimizeSidebar">
+                                <i class="material-icons visible-on-sidebar-regular">more_vert</i>
+                                <i class="material-icons visible-on-sidebar-mini">view_list</i>
+                            </button>
+                        </div>
+                        <div class="navbar-header">
+                            <button class="navbar-toggle" type="button">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"> @ViewBag.title </a>
+                        </div>
                     </div>
                     <!---->
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse justify-content-end">
                         <div>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
@@ -168,9 +170,11 @@
                     <!---->
                 </div>
             </nav>
-
-            @RenderBody()
-
+            <div class="main-content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
             <div>
                 <footer class="footer">
                     <div class="container-fluid">

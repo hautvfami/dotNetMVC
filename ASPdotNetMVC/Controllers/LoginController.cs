@@ -19,6 +19,13 @@ namespace ASPdotNetMVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["localInfo"] = null;
+            return Redirect("/");
+        }
+
         [HttpPost]
         public ActionResult handleLogin(USER entity)
         {
@@ -27,7 +34,7 @@ namespace ASPdotNetMVC.Controllers
             if (model != null)
             {
                 Session["localInfo"] = model;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "News");
             }
             return Content("Hi, Login fail!");
         }

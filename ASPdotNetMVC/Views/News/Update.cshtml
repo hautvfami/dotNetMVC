@@ -1,0 +1,57 @@
+﻿@model ASPdotNetMVC.Models.NEWS
+@{
+    ViewBag.Title = "Sửa tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Dist/ckeditor/ckeditor.js"></script>
+<script src="~/Dist/ckfinder/ckfinder.js"></script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.config.htmlEncodeOutput = true;
+        CKEDITOR.replace("edt");
+    })
+</script>
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="green">
+            <i class="material-icons">assignment</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Sửa tin</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Tiêu đề</label>
+                            @Html.TextBoxFor(model => model.TITLE, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-5"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group label-floating">
+                            <label class="control-label">Nội dung</label>
+                            @Html.TextAreaFor(model => model.CONTENT, new { @class = "form-control", @id = "edt" })
+                            @Html.ValidationMessageFor(model => model.CONTENT, "", new { @class = "text-danger" })
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input class="btn btn-next btn-fill btn-success btn-wd pull-right" name="next" value="Đồng ý" type="submit">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+﻿@model ASPdotNetMVC.Models.USER
+@{
+    ViewBag.Title = "Cập nhật";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Dist/ckfinder/ckfinder.js"></script>
+<script>
+    
+</script>
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-header card-header-icon" data-background-color="green">
+            <i class="material-icons">people</i>
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">Sửa thông tin người dùng</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Mã người dùng</label>
+                            @Html.TextBoxFor(model => model.ID, new { @class = "form-control", @disabled = "" })
+                            @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 px-1">
+                        <div class="form-group">
+                            <label>Tên đăng nhập</label>
+                            @Html.TextBoxFor(model => model.USERNAME, new { @class = "form-control", @disabled = "" })
+                            @Html.ValidationMessageFor(model => model.USERNAME, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                        <div class="form-group">
+                            <label for="txtImage">Mật khẩu</label>
+                            @*<img source=@model.AVATAR==null?"/Dist/images/user.png" : "data:image/png;base64," + Convert.ToBase64String(model.AVATAR);/>*@
+                            @Html.TextBoxFor(model => model.PASSWORD, new {@class = "form-control", @type="password"})
+                            @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
+                            <label>Họ và Tên</label>
+                            @Html.TextBoxFor(model => model.NAME, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-1">
+                        <div class="form-group">
+                            <label>Số ĐT</label>
+                            @Html.TextBoxFor(model => model.PHONE, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.PHONE, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            @Html.TextBoxFor(model => model.ADDRESS, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ADDRESS, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 pl-1">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            @Html.TextBoxFor(model => model.EMAIL, new { @class = "form-control", @placeholder = "Email", @type = "email" })
+                            @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 pl-1">
+                        <div class="form-group">
+                            <label>-- Vai trò --</label>
+                            @Html.DropDownListFor(model => model.CODE, new List<SelectListItem> {
+                                new SelectListItem { Text = "Quản trị", Value = "0" },
+                                new SelectListItem{Text="Quản lý", Value="1"},
+                                new SelectListItem{Text="Người dùng", Value="2"}
+                            }, new { @class = "form-control" });
+                            @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success btn-fill pull-right">Đồng ý</button>
+                <div class="clearfix"></div>
+            }
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-content">
+            <h4 class="card-title">Quản lý người dùng</h4>
+            <p>Avatar in here</p>
+        </div>
+    </div>
+</div>
